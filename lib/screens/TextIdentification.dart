@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shroomify/experts/text_expert.dart';
 import '/screens/WaitingScreen.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class TextIdentification extends StatefulWidget {
   @override
@@ -10,6 +11,25 @@ class TextIdentification extends StatefulWidget {
 class _TextIdentificationState extends State<TextIdentification> {
   final TextEditingController _controller = TextEditingController();
   String _description = '';
+
+  void _submitDescription() async {
+    if (_description.isEmpty) return;
+
+    try {
+      final result = await analyzeMushroomDescription(_description);
+      print('LLM Response:\n$result'); // Log to console
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('LLM response printed to console!')),
+      );
+    } catch (e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to analyze description')),
+      );
+    } finally {
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +75,7 @@ class _TextIdentificationState extends State<TextIdentification> {
             
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  
-                  if (_description.isNotEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Description Submitted')),
-                    );
-                
-                  }
-                },
+                onPressed: _submitDescription,
                 child: Text('Submit Description'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple, 

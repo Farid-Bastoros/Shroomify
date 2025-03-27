@@ -1,0 +1,97 @@
+# Flutter/Dart related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# macOS
+macos/Flutter/ephemeral/
+*.xcworkspace
+*.xcodeproj
+*.xcuserdata
+*.xcuserstate
+
+# Android
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/gradle/
+*.jks
+
+# iOS
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/ephemeral/
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/build/
+ios/.symlinks/
+
+# Web
+web/.dart_tool/
+web/.packages
+web/build/
+
+# Windows
+windows/runner/
+windows/.flutter-plugins/
+windows/.flutter-plugins-dependencies
+windows/build/
+
+# Linux
+linux/build/
+linux/flutter/
+linux/.flutter-plugins
+linux/.flutter-plugins-dependencies
+
+# ENV & secrets
+.env
+.env.*
+*.key
+*.pem
+*.jks
+
+# Others
+.DS_Store
+*.lock
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+*.class
+
+# Coverage
+coverage/
+coverage.lcov
+
+# Firebase/Crashlytics
+firebase_app_id_file.json
+google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Symbol files
+*.symbols
+
+# Output APK
+*.apk
+*.ipa
+
+# Generated plugin registrant
+generated_plugin_registrant.*
+
+# Shaders
+*.spv
