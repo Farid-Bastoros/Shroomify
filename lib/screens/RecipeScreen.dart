@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class RecipeScreen extends StatelessWidget {
   final String mushroomName;
@@ -42,6 +43,13 @@ class RecipeScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Share.share('Check out this mushroom recipe: \n\n$recipe');
+        },
+        child: Icon(Icons.share),
+        tooltip: 'Share Recipe',
       ),
     );
   }
