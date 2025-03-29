@@ -45,7 +45,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
       setState(() {
         _mushroomName = topResult['name'] ?? 'Unknown';
         _confidenceScore = (topResult['probability'] ?? 0.0).toDouble();
-        _edibility = 'Unknown'; // You can add a lookup later
+        _edibility = topResult["details"]["edibility"]; // You can add a lookup later
         _isProcessing = false;
       });
     } else {

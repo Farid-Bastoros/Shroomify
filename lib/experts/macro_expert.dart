@@ -8,7 +8,7 @@ Future<Map<String, dynamic>> identifyMushroomImage(File imageFile) async {
   final base64Image = base64Encode(bytes);
 
   final response = await http.post(
-    Uri.parse('https://mushroom.kindwise.com/api/v1/identification'), // confirm this endpoint with docs
+    Uri.parse('https://mushroom.kindwise.com/api/v1/identification?details=edibility'), // confirm this endpoint with docs
     headers: {
       'Content-Type': 'application/json',
       'Api-Key': dotenv.env['MUSHROOM_ID_API_KEY']!,
