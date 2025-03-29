@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shroomify/experts/macro_expert.dart';
 import 'dart:async';
 import 'dart:io';
 import 'ResultScreen.dart';
@@ -21,12 +22,45 @@ class _WaitingScreenState extends State<WaitingScreen> {
     _startIdentificationProcess();
   }
 
-  Future<void> _startIdentificationProcess() async {
-    await Future.delayed(Duration(seconds: 5)); 
+  String _mushroomName = '';
+  String _edibility = '';
+  double _confidenceScore = 0.0;
+  String _source = 'Mushroom.id API';
+
+ Future<void> _startIdentificationProcess() async {
+  try {
+    final result = await identifyMushroomImage(widget.image);
+
+    final isMushroom = result['result']['is_mushroom']?['binary'] ?? false;
+    final suggestions = result['result']?['classification']?['suggestions'];
+
+    if (!isMushroom) {
+      print('Image is not likely a mushroom');
+      throw Exception('Image is not a mushroom');
+    }
+
+    if (suggestions != null && suggestions.isNotEmpty) {
+      final topResult = suggestions[0];
+
+      setState(() {
+        _mushroomName = topResult['name'] ?? 'Unknown';
+        _confidenceScore = (topResult['probability'] ?? 0.0).toDouble();
+        _edibility = 'Unknown'; // You can add a lookup later
+        _isProcessing = false;
+      });
+    } else {
+      throw Exception('No suggestions returned');
+    }
+  } catch (e) {
+    print('Error identifying mushroom: $e');
     setState(() {
+      _mushroomName = 'Identification Failed';
+      _edibility = 'N/A';
+      _confidenceScore = 0.0;
       _isProcessing = false;
     });
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +89,10 @@ class _WaitingScreenState extends State<WaitingScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ResultScreen(
-                            //image: File('path_to_image'),
-                            mushroomName: 'Amanita Muscaria',
-                            edibility: 'Poisonous',
-                            confidenceScore: 0.87,
-                            source: 'Plant.id API',
+                            mushroomName: _mushroomName,
+                            edibility: _edibility,
+                            confidenceScore: _confidenceScore,
+                            source: _source,
                           ),
                         ),
                       );
