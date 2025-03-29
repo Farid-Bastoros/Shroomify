@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:shroomify/recipe/recipeGenerator.dart';
+import 'package:shroomify/screens/RecipeScreen.dart';
+import 'package:shroomify/screens/RecipeWaitingScreen.dart';
+
 class ResultScreen extends StatefulWidget {
   final String mushroomName;
   final String edibility;
@@ -80,10 +84,28 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ),
               
-              if (widget.edibility.toLowerCase() == 'edible')
+              if (widget.edibility.toLowerCase() == 'edible' || widget.edibility.toLowerCase() == 'choice')
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: CatchyButton(),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RecipeWaitingScreen(mushroomName: widget.mushroomName),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrange,
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Text("Get Recipe", style: TextStyle(fontSize: 18)),
+                  ),
                 ),
             ],
           ),
