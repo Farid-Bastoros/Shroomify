@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '/screens/TextIdentification.dart';
-import '/screens/MacroImageIdentification.dart';
+//import '/screens/TextIdentification.dart';
 import '/screens/MicroImageIdentification.dart';
 
 
@@ -48,30 +47,31 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TextIdentification()),
-                        );},
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => TextIdentification()),
+                        // );
+                        },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      child: const Text('Identify via Text'),
+                      child: const Text('UNAVAILABLE'),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Macroimageidentification()),
-                        );
+                        // Navigator.push(
+                        //   context
+                        //   // MaterialPageRoute(builder: (context) => Macroimageidentification()),
+                        // );
                       },
                       style: ElevatedButton.styleFrom(
                         
                         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      child: const Text('Identify via Macro Image'),
+                      child: const Text('UNAVAILABLE'),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                         textStyle: const TextStyle(fontSize: 18),
                       ),
-                      child: const Text('Identify via Micro Image'),
+                      child: const Text('Identify Mushroom'),
                     ),
                   ],
                 ),

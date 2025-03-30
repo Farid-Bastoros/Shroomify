@@ -82,7 +82,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Confidence Score: ${(widget.confidenceScore * 100).toStringAsFixed(2)}%",
+                      "Confidence Score: ${(widget.confidenceScore).toStringAsFixed(2)}%",
                       style: const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 10),
