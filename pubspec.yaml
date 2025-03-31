@@ -82,6 +82,8 @@ flutter:
   assets:
     - assets/images/mush_cover.jpeg
     - assets/images/Tick.gif
+    - assets/images/google_logo.png
+    - assets/images/facebook_logo.png
     - .env
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:marquee/marquee.dart';
 import '/screens/MicroImageIdentification.dart';
+import '/screens/LoginPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,48 +14,43 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool showMushroomOfTheDay = true;
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     'Shroomify',
-      //     style: GoogleFonts.poppins(
-      //       fontSize: 24,
-      //       fontWeight: FontWeight.bold,
-      //       color: Colors.white,
-      //     ),
-      //   ),
-      //   backgroundColor: Colors.deepPurpleAccent,
-      //   centerTitle: true,
-      //   elevation: 5,
-      // ),
       appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Icon(
-              //   Icons.local_florist, 
-              //   color: Colors.white,
-              //   size: 28,
-              // ),
-              SizedBox(width: 8),
-              Text(
-                '🍄 Shroomify 🔍',
-                style: GoogleFonts.poppins(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(width: 8),
+            Text(
+              '🍄 Shroomify 🔍',
+              style: GoogleFonts.poppins(
+                fontSize: 28,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
               ),
-            ],
-          ),
-          backgroundColor: Colors.deepPurpleAccent,
-          centerTitle: true,
-          elevation: 5,
+            ),
+          ],
         ),
-
+        backgroundColor: Colors.deepPurpleAccent,
+        centerTitle: true,
+        elevation: 5,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -248,7 +244,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-
             ),
           ],
         ),
@@ -259,6 +254,8 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showUnselectedLabels: true,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
