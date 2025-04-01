@@ -20,6 +20,7 @@ class _TextIdentificationState extends State<TextIdentification> {
   String gillThickness = '';
   double stemLength = 0.0;
   String location = '';
+  String verbalDescription = '';
 
   _TextIdentificationState(){
     capDiameter = DecisionForum.instance.textExpert!.capDiameter;
@@ -28,24 +29,29 @@ class _TextIdentificationState extends State<TextIdentification> {
     stemLength = DecisionForum.instance.textExpert!.stemLength;
     color = DecisionForum.instance.textExpert!.color;
     location = DecisionForum.instance.textExpert!.location;
+    verbalDescription = DecisionForum.instance.textExpert!.verbalDescription;
   }
+
+  final List<String> colors = ['','White', 'Brown', 'Yellow', 'Red', 'Gray'];
+  final List<String> surfaces = ['','Smooth', 'Scaly', 'Sticky', 'Fibrillose'];
+  final List<String> gillOptions = ['','Thin', 'Medium', 'Thick'];
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Text Identification'),
-        backgroundColor: Colors.deepPurple,
+        title: Text('Mushroom Identification'),
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
+
             Text(
-              'Enter the Description',
+              'Mushroom Description Form',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -53,25 +59,120 @@ class _TextIdentificationState extends State<TextIdentification> {
               ),
             ),
             SizedBox(height: 20),
-            
-            TextField(
-              controller: _controller,
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: 'Describe the mushroom...',
-                labelText: 'Mushroom Description',
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+            // Cap Diameter
+            Row(
+
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Cap Diameter (cm)',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Enter diameter';
+                      return null;
+                    },
+                    onSaved: (value) {
+                      capDiameter = double.tryParse(value!) ?? 0.0;
+                    },
+                  )
                 ),
+                SizedBox(width: 25),
+                Expanded(child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Stem Length (cm)',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Enter diameter';
+                    return null;
+                  },
+                  onSaved: (value) {
+                    stemLength = double.tryParse(value!) ?? 0.0;
+                  },
+                )
+                )
+
+              ],
+            ),
+            SizedBox(height: 20),
+            DropdownButtonFormField<String>(
+              value: gillThickness,
+              items: gillOptions.map((g) {
+                return DropdownMenuItem(value: g, child: Text(g));
+              }).toList(),
+              decoration: InputDecoration(
+                labelText: 'Gill Thickness',
+                border: OutlineInputBorder(),
               ),
-              onChanged: (text) {
-                setState(() {
-                  _description = text;
-                });
+              onChanged: (value) => setState(() => gillThickness = value!),
+              validator: (value) => value == null ? 'Select gill thickness' : null,
+            ),
+            SizedBox(height: 20),
+            DropdownButtonFormField<String>(
+              value: color,
+              items: colors.map((g) {
+                return DropdownMenuItem(value: g, child: Text(g));
+              }).toList(),
+              decoration: InputDecoration(
+                labelText: 'Color',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) => setState(() => color = value!),
+              validator: (value) => value == null ? 'Select visible color' : null,
+            ),
+            SizedBox(height: 20),
+            DropdownButtonFormField<String>(
+              value: surface,
+              items: surfaces.map((g) {
+                return DropdownMenuItem(value: g, child: Text(g));
+              }).toList(),
+              decoration: InputDecoration(
+                labelText: 'Surface Type',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) => setState(() => surface = value!),
+              validator: (value) => value == null ? 'Select Surface Type' : null,
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Location Details',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) return 'Enter Location Description';
+                return null;
+              },
+              onSaved: (value) {
+                location = value!;
               },
             ),
             SizedBox(height: 20),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Verbal Description',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) return 'Enter Verbal Description';
+                return null;
+              },
+              onSaved: (value) {
+                verbalDescription = value!;
+              },
+            ),
+            SizedBox(height: 20,),
+            Center(
+              child: ElevatedButton(onPressed: (){}, child: Text('Save')),
+            )
+
+
             
 
           ],

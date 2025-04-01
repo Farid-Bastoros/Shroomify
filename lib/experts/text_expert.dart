@@ -13,6 +13,7 @@ class TextExpert{
   String _gillThickness = '';
   double _stemLength = 0.0;
   String _location = '';
+  String _verbalDescription = '';
 
   String expertUrl;
 
@@ -60,6 +61,12 @@ class TextExpert{
 
   set location(String value){
     this._location = value;
+  }
+
+  String get verbalDescription => _verbalDescription;
+
+  set verbalDescription(String value){
+    this._verbalDescription = verbalDescription;
   }
 
   TextExpert({required this.expertUrl});
