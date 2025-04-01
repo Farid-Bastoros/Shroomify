@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animate_do/animate_do.dart';
-import 'package:marquee/marquee.dart';
-import 'package:shroomify/screens/home_page.dart';
-import '/screens/MicroImageIdentification.dart';
+import 'package:shroomify/screens/HomeTab.dart';
 import '/screens/LoginPage.dart';
-import '/screens/IdentificationPage.dart';
-import '/screens/home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final _tabs = [
-    const HomePage(),
+    const HomeTab(),
     const Placeholder(),
     const Placeholder(),
     LoginPage(),
