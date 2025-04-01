@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import '/screens/WaitingScreen.dart';
+import 'package:shroomify/experts/decision_forum.dart';
 
 class Macroimageidentification extends StatefulWidget {
   @override
@@ -12,6 +12,12 @@ class Macroimageidentification extends StatefulWidget {
 class _MacroimageidentificationState extends State<Macroimageidentification> {
   File? _image;
 
+  _MacroimageidentificationState(){
+    File? imageMacro = DecisionForum.instance.macroImageExpert?.getImage();
+    if(imageMacro != null){
+      this._image = imageMacro;
+    }
+  }
   
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -20,33 +26,17 @@ class _MacroimageidentificationState extends State<Macroimageidentification> {
     if (image != null) {
       setState(() {
         _image = File(image.path);
+        DecisionForum.instance.selectMacroImage(_image);
       });
     }
   }
 
-  
-  void _submitImage(BuildContext context) {
-    if (_image != null) {
-      
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => WaitingScreen(image: _image, description: 'Waiting.'),
-        ),
-      );
-    } else {
-      
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Please select an image before submitting.'),
-      ));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Micro Image Identification'),
+        title: Text('Macro Image Identification'),
       ),
       body: Center(
         child: Column(
@@ -61,10 +51,6 @@ class _MacroimageidentificationState extends State<Macroimageidentification> {
               child: Text('Pick an Image'),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _submitImage(context),
-              child: Text('Submit Image'),
-            ),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:animations/animations.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:shroomify/experts/decision_forum.dart';
 
 class Microimageidentification extends StatefulWidget {
   const Microimageidentification({super.key});
@@ -16,11 +17,20 @@ class _MicroimageidentificationState extends State<Microimageidentification> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
+  _MicroimageidentificationState(){
+    File? imageMicro = DecisionForum.instance.microImageExpert?.getImage();
+    if(imageMicro != null){
+      this._image = imageMicro;
+    }
+  }
+
   Future<void> _pickImage(ImageSource source) async {
     final XFile? image = await _picker.pickImage(source: source);
     if (image != null) {
       setState(() {
         _image = File(image.path);
+        DecisionForum.instance.selectMicroImage(_image);
+
       });
     }
   }
@@ -32,12 +42,8 @@ class _MicroimageidentificationState extends State<Microimageidentification> {
       appBar: AppBar(
         title: const Text(
           'Micro Image Identification',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-        elevation: 10,
-        shadowColor: Colors.black26,
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -78,12 +84,7 @@ class _MicroimageidentificationState extends State<Microimageidentification> {
                     style: _buttonStyle(),
                   ),
                   const SizedBox(height: 15),
-                  ElevatedButton.icon(
-                    onPressed: () => _pickImage(ImageSource.camera),
-                    icon: const Icon(LucideIcons.camera),
-                    label: const Text('Take a Photo'),
-                    style: _buttonStyle(),
-                  ),
+
                 ],
               ),
             ),

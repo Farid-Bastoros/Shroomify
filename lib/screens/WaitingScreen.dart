@@ -33,7 +33,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
   try {
     if (widget.image != null) {
       // Image-based identification
-      final result = await identifyMushroomImage(widget.image!);
+      final result = {}; //await identifyMushroomImage(widget.image!);
       print('Image identification result: $result');
 
       final isMushroom = result['result']['is_mushroom']?['binary'] ?? false;
@@ -56,7 +56,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
         throw Exception('No suggestions returned');
       }
     } else if (widget.description.isNotEmpty) {
-      final result = await analyzeMushroomDescription(widget.description);
+      final result = {};//await analyzeMushroomDescription(widget.description);
       print('LLM identification result: $result');
 
       setState(() {

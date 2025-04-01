@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shroomify/experts/decision_forum.dart';
 import 'package:shroomify/experts/text_expert.dart';
 import '/screens/WaitingScreen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,22 +13,21 @@ class _TextIdentificationState extends State<TextIdentification> {
   final TextEditingController _controller = TextEditingController();
   String _description = '';
 
-  void _submitDescription() async {
-    if (_description.isEmpty) return;
+  double capDiameter = 0.0;
 
-    try {
-      final result = await analyzeMushroomDescription(_description);
-      print('LLM Response:\n$result'); // Log to console
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('LLM response printed to console!')),
-      );
-    } catch (e) {
-      print('Error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to analyze description')),
-      );
-    } finally {
-    }
+  String color = '';
+  String surface = '';
+  String gillThickness = '';
+  double stemLength = 0.0;
+  String location = '';
+
+  _TextIdentificationState(){
+    capDiameter = DecisionForum.instance.textExpert!.capDiameter;
+    surface = DecisionForum.instance.textExpert!.surface;
+    gillThickness = DecisionForum.instance.textExpert!.gillThickness;
+    stemLength = DecisionForum.instance.textExpert!.stemLength;
+    color = DecisionForum.instance.textExpert!.color;
+    location = DecisionForum.instance.textExpert!.location;
   }
 
 
@@ -73,20 +73,7 @@ class _TextIdentificationState extends State<TextIdentification> {
             ),
             SizedBox(height: 20),
             
-            Center(
-              child: ElevatedButton(
-                onPressed: _submitDescription,
-                child: Text('Submit Description'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
+
           ],
         ),
       ),
