@@ -15,8 +15,8 @@ class MacroImageExpert{
     return _image != null;
   }
 
-  Future<Map<String, dynamic>> identifyMushroomImage(File imageFile) async {
-    final bytes = await imageFile.readAsBytes();
+  Future<Map<String, dynamic>> identifyMushroomImage() async {
+    final bytes = await _image!.readAsBytes();
     final base64Image = base64Encode(bytes);
 
     final response = await http.post(
@@ -39,7 +39,7 @@ class MacroImageExpert{
 
   Future<bool> checkConnection() async {
     try {
-      final response = await http.get(Uri.parse(this.expertUrl))
+      final response = await http.get(Uri.parse(expertUrl))
           .timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
