@@ -3,6 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+enum TextExpertStatus{
+  NOT_READY,
+  PARTIAL_READY,
+  READY
+}
 
 class TextExpert{
 
@@ -66,7 +71,7 @@ class TextExpert{
   String get verbalDescription => _verbalDescription;
 
   set verbalDescription(String value){
-    this._verbalDescription = verbalDescription;
+    this._verbalDescription = value;
   }
 
   TextExpert({required this.expertUrl});
@@ -138,6 +143,28 @@ class TextExpert{
         'source': 'LLM Response Failure',
       };
     }
+  }
+
+  TextExpertStatus canUseExpert(){
+
+    final fields = [
+      capDiameter > 0.0,
+      stemLength > 0.0,
+      _color.isNotEmpty,
+      _surface.isNotEmpty,
+      _gillThickness.isNotEmpty,
+      _location.isNotEmpty,
+      _verbalDescription.isNotEmpty
+    ];
+
+    //all fields filled out
+    if (fields.every((f) => f)) return TextExpertStatus.READY;
+
+    //no fields filled out
+    if (fields.every((f) => !f)) return TextExpertStatus.NOT_READY;
+
+    //some fields filled out
+    return TextExpertStatus.PARTIAL_READY;
   }
 
   Future<bool> checkConnection() async {

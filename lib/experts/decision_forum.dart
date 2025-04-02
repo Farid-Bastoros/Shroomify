@@ -40,4 +40,8 @@ class DecisionForum{
     return this.macroImageExpert?.canUseExpert();
   }
 
+  TextExpertStatus? isTextExpertReady(){
+    return this.textExpert?.canUseExpert();
+  }
+
 }
